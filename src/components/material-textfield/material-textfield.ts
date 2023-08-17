@@ -28,7 +28,7 @@ const fire = <T>(
   return event;
 };
 
-@customElement('form-plugin-textfield2')
+@customElement('form-plugin-textfieldsss')
 export class NintexSampleTextfield extends LitElement {
   static styles = styles;  //Add custom CSS. See https://help.nintex.com/en-US/formplugins/Reference/Style.htm
 
