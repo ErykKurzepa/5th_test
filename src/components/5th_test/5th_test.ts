@@ -1,10 +1,10 @@
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import '@material/mwc-textfield/mwc-textfield.js';
-import { NintexPlugin } from '../../lib/nintex.plugin';
+import { PluginContract } from '@nintex/form-plugin-contract';
+
 import { TextField } from '@material/mwc-textfield/mwc-textfield.js';
 import { styles } from './material-textfield.styles';
-import { PluginContract, PropType as PluginProperty } from '@nintex/form-plugin-contract';
 
 const fire = <T>(
   element: HTMLElement,
@@ -22,14 +22,15 @@ const fire = <T>(
     ...data,
   };
 
+  // the event name 'ntx-value-change' is required to tell the form engine to update the value
   const event = new CustomEvent('ntx-value-change', args);
   element.dispatchEvent(event);
   return event;
 };
 
-@customElement('form-plugin-textfield')
+@customElement('form-plugin-textfieldssss')
 export class NintexSampleTextfield extends LitElement {
-  static styles = styles;
+  static styles = styles;  //Add custom CSS. See https://help.nintex.com/en-US/formplugins/Reference/Style.htm
 
   @property()
   label!: string;
@@ -38,21 +39,21 @@ export class NintexSampleTextfield extends LitElement {
   @property({ type: Boolean })
   outlined: boolean = false;
   @property({ type: Boolean })
-  readOnly: boolean = false;
+  readOnly: boolean = false;   //Add a read-only mode. See https://help.nintex.com/en-US/formplugins/Reference/ReadOnly.htm
 
-  static getMetaConfig(): Promise<NintexPlugin> | NintexPlugin {
+  static getMetaConfig(): Promise<PluginContract> | PluginContract {
     // plugin contract information
     return {
       controlName: 'Material Text field',
       fallbackDisableSubmit: false,
       iconUrl: 'one-line-text',
       version: '1',
-      properties: {
+      properties: { //A custom configuration field. See https://help.nintex.com/en-US/formplugins/Reference/CustomField.htm
         outlined: {
           type: 'boolean',
           title: 'Show Outline',
         },
-        value: {
+        value: {  //A field to pass a value to the workflow as a variable. See https://help.nintex.com/en-US/formplugins/Reference/StoreValue.htm
           type: 'string',
           title: 'Value',
           // this is to mark the field as value field. it should only be defined once in the list of properties
@@ -64,7 +65,7 @@ export class NintexSampleTextfield extends LitElement {
         fieldLabel: true,
         description: true,
         defaultValue: true,
-        readOnly: true,
+        readOnly: true,   //Add a read-only mode. See https://help.nintex.com/en-US/formplugins/Reference/ReadOnly.htm
       },
     };
   }
